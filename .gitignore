@@ -1,0 +1,7 @@
+*
+
+!.gitignore
+!.vimrc
+!.screenrc
+!.aliasrc
+!.alacritty.toml

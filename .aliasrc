@@ -1,0 +1,64 @@
+alias ra='ranger'
+alias mutt='neomutt'
+alias mt='neomutt'
+alias shut='shutdown 0'
+alias shush='shutdown 0'
+alias recent='ls -t | head -n5'
+alias glog='git log --oneline -n10'
+
+alias vim=nvim
+
+alias ll='ls -lah'
+alias cd..='cd ..'
+
+alias cd='z'
+
+alias gdb='gdb -q'
+alias tldr='tldr -c'
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+fvim() {
+    ffile=$(
+        (
+            [ -n "$1" ] && cd "$1"
+            fzf
+        )
+    ) && echo $ffile 
+    [ -n "$1" ] && ffile="$1/$ffile"
+    [ -n "$ffile" ] && vim "$ffile"
+}
+
+fcd() {
+    cd "$(dirname "$(fzf)")"
+}
+
+serve() {
+    if [ $# -lt 2 ]; then
+        echo "Usage: username password [mount] [port=2222]"
+        return 1
+    fi 
+
+    user="$1"
+    pass="$2"
+    
+    mountpoint="${3:-}"
+    port="${4:-2222}"
+
+    sudo docker run -v "$mountpoint":/home/foo/upload -p $port:22 -d atmoz/sftp $user:$pass
+}
+
+dockermounts() {
+    (
+        set -o pipefail
+        sudo docker inspect $1 --format='{{json .Mounts}}' | jq || echo -e "\e[34mNo mounts\e[0m"
+    )
+}
+
+yt-dlp-twitter() {
+    yt-dlp "https://x.com/GarotosVip5/status/1818438597852512729" --username "4lan1o22" --password "$(pass twitter | head -n1)"
+}

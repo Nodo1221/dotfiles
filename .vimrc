@@ -30,8 +30,8 @@ set hidden
 set hlsearch
 set ignorecase
 set incsearch
-" set mouse=a
-set mouse=c
+set mouse=a
+" set mouse=c
 set nobackup
 set noerrorbells
 set noshowcmd
